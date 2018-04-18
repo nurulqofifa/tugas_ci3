@@ -24,7 +24,20 @@ class Blog extends CI_Controller {
 		$this->load->model('artikel');
 		$data = array();
 
-		if ($this->input->post('simpan')) {
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('input_judul', 'judul terlebih dahulu', 'required', array('required' => 'isi %s, '));
+		$this->form_validation->set_rules('input_content', 'content terlebih dahulu', 'required', array('required' => 'isi %s, '));
+		$this->form_validation->set_rules('input_tanggal', 'tanggal terlebih dahulu', 'required', array('required' => 'isi %s, '));
+		// $this->form_validation->set_rules('input_gambar', 'gambar terlebih dahulu', 'required', array('required' => 'isi %s, '));
+		$this->form_validation->set_rules('input_penulis', 'Judul terlebih dahulu', 'required', array('required' => 'isi %s, '));
+		$this->form_validation->set_rules('input_sumber', 'sumber terlebih dahulu', 'required', array('required' => 'isi %s, '));
+		$this->form_validation->set_rules('lokasi_penulisan', 'lokasi_penulisan terlebih dahulu', 'required', array('required' => 'isi %s, '));
+
+		if($this->form_validation->run()==FALSE){
+			$this->load->view('form_tambah');
+		}
+		else{
+			if ($this->input->post('simpan')) {
 			$upload = $this->artikel->upload();
 
 			if ($upload['result'] == 'success') {
@@ -32,15 +45,12 @@ class Blog extends CI_Controller {
 				redirect('blog');
 			}else{
 				$data['message'] = $upload['error'];
-				$this->load->view('gagal', $data);
 			}
-		}else{
-
 		}
 
-		$this->load->view('gagal', $data);
+		$this->load->view('form_tambah', $data);
 	}
-
+}
 
 	public function Delete($id){
 		$this->load->model('artikel');
@@ -60,6 +70,4 @@ class Blog extends CI_Controller {
 		}
 		$this->load->view('home_view_form', $data);
 	}
-
-
 }

@@ -44,6 +44,9 @@
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
             </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="blog">News</a>
+            </li>
 <!--             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a>
             </li>
@@ -71,7 +74,6 @@
   <h3>Macam Macam Hijab</h3><br>
   </center>
 </div>
-
     </section>
 
     <!-- About Section -->
@@ -114,7 +116,10 @@
       </div>
     </div>
   </div>
+
     </section>
+
+     
 
     <!-- Contact Section -->
    
@@ -310,6 +315,7 @@
         </div>
       </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="assets/vendor/jquery/jquery.min.js"></script>

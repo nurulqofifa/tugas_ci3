@@ -81,7 +81,7 @@
           <tr>
             <td class="text-center">
               <img src="../../images/<?php echo $key->images;?>" alt="Image" width="500" height="400">\
-              <?php echo $key->judul; ?>
+              
               <br></br>
               <br></br>
               <br></br>

@@ -15,6 +15,12 @@ class Artikel extends CI_Model{
 	{
 		$query = $this->db->query('select * from tabel_blog where id='.$id);
 		return $query->result();
+
+		$this->db->select('*');
+		$this->db->from('tabel_blog');
+		$this->db->join('categories', 'tabel_blog.id_cat = categories.id_cat');
+		$this->db->where('tabel_blog.id='.$id);
+		return $this->db->get()->result();
 	}
 
 	//insert gambar
@@ -22,7 +28,7 @@ class Artikel extends CI_Model{
 	public function upload()
 	{
 		$config['upload_path'] = './images/';
-		$config['allowed_types'] = 'jpg|png';
+		$config['allowed_types'] = 'jpg|png|jpeg';
 		$config['max_size']  = '2048';
 		$config['remove_space']  = TRUE;
 		
@@ -46,36 +52,54 @@ class Artikel extends CI_Model{
 			'judul' => $this->input->post('input_judul'),
 			'konten' => $this->input->post('input_content'),
 			'tanggal' => $this->input->post('input_tanggal'),
-			'images' => $upload['file']['file_name']
+			'images' => $upload['file']['file_name'],
+			'id_cat' => $this->input->post('id_cat'),
+
 		);
 
 		$this->db->insert('tabel_blog', $data);
 	}
 	
-	public function get_default($id)
-	{
-		$data = array();
-  		$options = array('id' => $id);
-  		$Q = $this->db->get_where('tabel_blog',$options,1);
-    		if ($Q->num_rows() > 0){
-      			$data = $Q->row_array();
-   			}
-  		$Q->free_result();
- 		return $data;
-	}
+	// public function get_default($id)
+	// {
+	// 	$data = array();
+ //  		$options = array('id' => $id);
+ //  		$Q = $this->db->get_where('tabel_blog',$options,1);
+ //    		if ($Q->num_rows() > 0){
+ //      			$data = $Q->row_array();
+ //   			}
+ //  		$Q->free_result();
+ // 		return $data;
+	// }
 
 
-	public function update($post, $id){
-		$judul = $this->db->escape($POST['judul']);
-		$konten = $this->db->escape($POST['konten']);
-		$tanggal= $this->db->escape($POST['tanggal']);
-		
-		$sql = $this->db->query("UPDATE tabel_blog SET judul = $judul, konten = $konten, tanggal = $tanggal");
-
-		return true;
+	public function update($upload, $id){
+		if($upload['result']=='success'){
+			$data = array('judul' => $this->input->post('judul'),
+							'konten' => $this->input->post('content'),
+							'penulis' => $this->input->post('penulis'),
+							'sumber' => $this->input->post('sumber'),
+							'lokasi_penulisan' => $this->input->post('id_kategori'),
+							'id_cat' => $this->input->post('id_cat'),
+							'images' => $upload['file']['file_name']
+			);
+		} else {
+			$data = array(
+				'judul' => $this->input->post('judul'),
+				'konten' => $this->input->post('content'),
+				'penulis' => $this->input->post('penulis'),
+				'sumber' => $this->input->post('sumber'),
+				'lokasi_penulisan' => $this->input->post('lokasi_penulisan'),
+				'id_cat' => $this->input->post('id_cat'),
+			);
+		} 
+		$this->db->where('id',$id);
+		$this->db->update('tabel_blog', $data);
 	}
 
 	public function Hapus($id){
 		$query = $this->db->query('DELETE from tabel_blog where id = '.$id);
 	}
+
+	
 }

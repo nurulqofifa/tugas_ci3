@@ -22,7 +22,10 @@ class Blog extends CI_Controller {
 	public function tambah()
 	{
 		$this->load->model('artikel');
+		$this->load->model('category_model');
 		$data = array();
+		$data['categories'] = $this->category_model->get_category();
+
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('input_judul', 'judul terlebih dahulu', 'required', array('required' => 'isi %s, '));
@@ -34,7 +37,7 @@ class Blog extends CI_Controller {
 		$this->form_validation->set_rules('lokasi_penulisan', 'lokasi_penulisan terlebih dahulu', 'required', array('required' => 'isi %s, '));
 
 		if($this->form_validation->run()==FALSE){
-			$this->load->view('form_tambah');
+			$this->load->view('form_tambah', $data);
 		}
 		else{
 			if ($this->input->post('simpan')) {
@@ -48,7 +51,7 @@ class Blog extends CI_Controller {
 			}
 		}
 
-		$this->load->view('form_tambah', $data);
+		$this->load->view('V_news', $data);
 	}
 }
 
@@ -60,14 +63,22 @@ class Blog extends CI_Controller {
 
 
 	public function Edit($id){
-		$this->load->model("artikel");
-		$data['tipe'] = "Edit";
-		$data['default'] = $this->artikel->get_default($id);
+		$this->load->model('artikel');
+		$this->load->model('category_model');
+		$data['categories'] = $this->category_model->get_category();
+		$data['single'] = $this->artikel->get_single($id);
 
 		if(isset($_POST['simpan'])){
-			$this->artikel->update($_POST, $id);
+			$upload=$this->artikel->upload();
+			$this->artikel->update($upload, $id);
 			redirect('blog');
 		}
-		$this->load->view('home_view_form', $data);
+		$this->load->view('update_blog', $data);
 	}
+
+	// Gunakan fungsi dari model untuk mengisi data dalam dropdown
+        // $data['categories'] = $this->category_model->generate_cat_dropdown();
+
+
+	
 }

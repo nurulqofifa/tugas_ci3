@@ -15,6 +15,15 @@
           <td><input type="text" name="input_content" value="<?php echo set_value('input_content'); ?>"></td>
         </tr>
         <tr>
+          <label>Kategori</label>
+            <select name="id_cat" class="form-control" required>
+              <option value="">Pilih Kategori</option>
+              <?php foreach($categories as $categories): ?>
+              <option value="<?php echo $categories->id_cat; ?>"><?php echo $categories->cat_name; ?></option>
+              <?php endforeach; ?>
+            </select>
+        </tr>
+        <tr>
           <td>Tanggal </td>
           <td>:</td>
           <td><input type="text" name="input_tanggal" value="<?php echo set_value('input_tanggal'); ?>"></td>
@@ -44,3 +53,5 @@
         </tr>
       </table>
     </div>
+
+

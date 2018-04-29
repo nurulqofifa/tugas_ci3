@@ -57,78 +57,71 @@
         </div>
       </div>
     </nav>
-
-    <!-- Header -->
-    <header class="masthead bg-primary text-white text-center">
-      <div class="container-fluid bg-1 text-center">
-  <!-- <h3 class="margin">Who Am I?</h3> -->
-<center>  <img src="assets/img/20.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
-  	<h3>macam macam hijab</h3>
-	<h6>kunjungi <b>ABOUT</b> untuk info selanjutnya</h6>
-	</div>
-</center>
-    </header>
+<br><br><br><br>
 
 
-    <!-- Menampilkan data dari database -->
-    <div class="container text-center">
-      <?php foreach ($artikel as $key): ?>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <table style="margin-bottom: 30px;">
-            <tr>
-              <td>
-                <a href="blog/detail/<?php echo $key->id ?>" style="color: black;">
-                  <img src="images/<?php echo $key->images;?>" alt="Image" width="500" height="400">
-                  <br>
-                  <?php echo $key->judul ?><br>
-                  <?php echo $key->konten; ?>
-                </a>
-                <br>
-     <!--            <button>Edit</button> -->
-                <a href='blog/edit/<?php echo $key->id;?>' class='btn btn-sm btn-denger'> Edit </a>     
-                <a href='blog/delete/<?php echo $key->id;?>' class='btn btn-sm btn-denger'> Hapus </a>
-              </td>
-            </tr>
-          </table>
-        </div>
-      <?php endforeach ?>
+<div>
+  <a href='category/create' class='btn btn-sm btn-denger'> Tambah </a>
+</div>
+
+	<div class="card-content table-responsive">
+            <table class="table">
+                <thead class="text-primary">
+                    <th>Id Kategori</th>
+                    <th>Kategori</th>
+                    <th>Deskripsi</th>
+                    <th>Aksi</th>
+                </thead>
+
+                <tbody>
+                  <?php
+                        foreach ($category as $key) :  ?>
+                  <tr>
+                    <td><?php echo $key->id_cat ?></td>
+                    <td><?php echo $key->cat_name ?></td>
+                    <td><?php echo $key->cat_name ?></td>
+                    <td>
+                      <a href='category/Edit/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Edit </a>     
+                <a href='category/delete/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Hapus </a>         </td>
+                  </tr>
+            </tbody>
+            <?php endforeach;?>
+        </table>
     </div>
+   <!--  <div class="well well-sm">
+      <?php
+        foreach ($category as $key) :  ?>
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+             <table>
+             	<tr>
+			          <td>ID CATEGORY</td>
+			          <td>:</td>
+			          <td><h3><?php echo $key->id_cat ?></h3></td>
+             	</tr>
+             	<tr>
+             		<td>Category Name</td>
+          			<td>:</td>
+          			<td><h3><?php echo $key->cat_name ?></h3></td>
 
-    <!-- form untuk insert data -->
+             	</tr>
+             	<tr>
+             		<td>Category Description</td>
+          			<td>:</td>
+          			<td><h3><?php echo $key->cat_name ?></h3></td>
+             		  
+             	</tr>
+              <td>
+               <a href='category/Edit/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Edit </a>     
+                <a href='category/delete/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Hapus </a>           
+              </td>
+          </div>
+      </div>
+  </div>
+<?php endforeach;?> -->
 
-    <div class="container">
-      
-      <table>
 
-        <!-- <tr>
-          <td>Judul</td>
-          <td>:</td>
-          <td><input type="text" name="input_judul" value="<?php echo set_value('input_judul'); ?>"></td>
-        </tr>
-        <tr>
-          <td>Content</td>
-          <td>:</td>
-          <td><input type="text" name="input_content" value=""></td>
-        </tr>
-        <tr>
-          <td>Tanggal </td>
-          <td>:</td>    
-          <td><input type="date" name="input_tanggal" value=""></td>
-        </tr>
-        <tr>
-          <td>Gambar</td>
-          <td>:</td>
-          <td><input type="file" name="input_gambar"></td>
-        </tr>
-        <tr> -->
-          <li><a href="blog/tambah" class="btn btn-sm btn-danger">Tambah</a></li>
-
-        </tr>
-
-        <br>
-        <br>
-
-    <!-- Bootstrap core JavaScript -->
+<!-- Bootstrap core JavaScript -->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -142,7 +135,5 @@
 
     <!-- Custom scripts for this template -->
     <script src="assets/js/freelancer.min.js"></script>
-
-  </body>
-
+</body>
 </html>

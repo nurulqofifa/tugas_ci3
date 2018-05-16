@@ -5,10 +5,46 @@ class Blog extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->model('artikel');
-		$data['artikel'] = $this->artikel->get_artikels();
+		$this->load->model('Artikel');
+		$data['artikel'] = $this->Artikel->get_artikels();
 		$this->load->view('V_news', $data);
+
+
+		$data['artikel'] = 'Artikel'; 
+		
+		// Dapatkan data dari model Blog dengan pagination
+		// Jumlah artikel per halaman
+		$limit_per_page = 6;
+
+		// URI segment untuk mendeteksi "halaman ke berapa" dari URL
+		$start_index = ( $this->uri->segment(3) ) ? $this->uri->segment(3) : 0;
+
+		// Dapatkan jumlah data 
+		$total_records = $this->Artikel->get_total();
+		
+		if ($total_records > 0) {
+			// Dapatkan data pada halaman yg dituju
+			$data["artikel"] = $this->Artikel->get_all_artikel($limit_per_page, $start_index);
+			
+			// Konfigurasi pagination
+			$config['base_url'] = base_url() . 'blog/index';
+			$config['total_rows'] = $total_records;
+			$config['per_page'] = $limit_per_page;
+			$config["uri_segment"] = 3;
+			
+			$this->pagination->initialize($config);
+
+			// Buat link pagination
+			$data["links"] = $this->pagination->create_links();
+		}
 	}
+
+
+		// public function index()
+		// {
+
+		// }
+
 
 	public function detail($id)
 	{
@@ -41,19 +77,19 @@ class Blog extends CI_Controller {
 		}
 		else{
 			if ($this->input->post('simpan')) {
-			$upload = $this->artikel->upload();
+				$upload = $this->artikel->upload();
 
-			if ($upload['result'] == 'success') {
-				$this->artikel->insert($upload);
-				redirect('blog');
-			}else{
-				$data['message'] = $upload['error'];
+				if ($upload['result'] == 'success') {
+					$this->artikel->insert($upload);
+					redirect('blog');
+				}else{
+					$data['message'] = $upload['error'];
+				}
 			}
-		}
 
-		$this->load->view('V_news', $data);
+			$this->load->view('V_news', $data);
+		}
 	}
-}
 
 	public function Delete($id){
 		$this->load->model('artikel');
@@ -79,6 +115,12 @@ class Blog extends CI_Controller {
 	// Gunakan fungsi dari model untuk mengisi data dalam dropdown
         // $data['categories'] = $this->category_model->generate_cat_dropdown();
 
+	public function datatable($id){
+		$this->load->model('Artikel');
+		$data['artikel'] = $this->Artikel->get_artikels();
+		$this->load->view('V_news', $data);
+	}
 
-	
+
+
 }

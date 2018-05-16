@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Freelancer - Start Bootstrap Theme</title>
+  <title>Freelancer - Start Bootstrap Theme</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="assets/https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <!-- Custom fonts for this template -->
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="assets/https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Plugin CSS -->
-    <link href="assets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+  <!-- Plugin CSS -->
+  <link href="assets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
-    <link href="assets/css/freelancer.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="assets/css/freelancer.min.css" rel="stylesheet">
+  
+  <!-- datatabel -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?> assets/dt/datatables.min.css"/>
 
-  </head>
 
-  <body id="page-top">
+</head>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div class="container">
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+    <div class="container">
 <!--         <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu -->
@@ -53,40 +57,44 @@
 <!--             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a>
             </li>
- -->          </ul>
+          -->          </ul>
         </div>
       </div>
     </nav>
-<br><br><br><br>
+    <br><br><br><br>
 
 
-<div>
-  <a href='category/create' class='btn btn-sm btn-denger'> Tambah </a>
-</div>
 
-	<div class="card-content table-responsive">
-            <table class="table">
-                <thead class="text-primary">
-                    <th>Id Kategori</th>
-                    <th>Kategori</th>
-                    <th>Deskripsi</th>
-                    <th>Aksi</th>
-                </thead>
+    <div>
+      <a href='category/create' class='btn btn-sm btn-denger'> Tambah </a>
+    </div>
 
-                <tbody>
-                  <?php
-                        foreach ($category as $key) :  ?>
-                  <tr>
-                    <td><?php echo $key->id_cat ?></td>
-                    <td><?php echo $key->cat_name ?></td>
-                    <td><?php echo $key->cat_name ?></td>
-                    <td>
-                      <a href='category/Edit/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Edit </a>     
-                <a href='category/delete/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Hapus </a>         </td>
-                  </tr>
-            </tbody>
-            <?php endforeach;?>
-        </table>
+    <div class="card-content table-responsive">
+      <table class="table" id="myTable">
+        <thead class="text-primary">
+          <tr>
+          <th>Id Kategori</th>
+          <th>Kategori</th>
+          <th>Deskripsi</th>
+          <th>Aksi</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <?php
+          foreach ($category as $key) :  ?>
+          <tr>
+            <td><?php echo $key->id_cat ?></td>
+            <td><?php echo $key->cat_name ?></td>
+            <td><?php echo $key->cat_name ?></td>
+            <td>
+              <a href='category/Edit/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Edit </a>     
+              <a href='category/delete/<?php echo $key->id_cat;?>' class='btn btn-sm btn-denger'> Hapus </a>         </td>
+            </tr>
+          <?php endforeach;?>
+        </tbody>
+
+      </table>
     </div>
    <!--  <div class="well well-sm">
       <?php
@@ -122,18 +130,28 @@
 
 
 <!-- Bootstrap core JavaScript -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src="assets/js/jqBootstrapValidation.js"></script>
-    <script src="assets/js/contact_me.js"></script>
+<!-- Contact Form JavaScript -->
+<script src="assets/js/jqBootstrapValidation.js"></script>
+<script src="assets/js/contact_me.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="assets/js/freelancer.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="assets/js/freelancer.min.js"></script>
+
+
+<script type="text/javascript" src="<?php echo base_url() ?> assets/dt/datatables.min.js"></script>
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+  } );
+</script>
+
+
 </body>
 </html>

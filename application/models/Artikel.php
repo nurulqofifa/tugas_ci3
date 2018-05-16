@@ -5,6 +5,30 @@ class Artikel extends CI_Model{
 		//return $hsl;
 	//}
 	//mengakses semua database
+
+	public function get_all_artikel( $limit = FALSE, $offset = FALSE ) 
+	{
+        // Jika variable $limit ada pada parameter maka kita limit query-nya
+		if ( $limit ) {
+			$this->db->limit($limit, $offset);
+		}
+
+		$this->db->order_by('tabel_blog.tanggal', 'DESC');
+
+        // Inner Join dengan table Categories
+
+		$query = $this->db->get('tabel_blog');
+
+    	// Return dalam bentuk object
+		return $query->result();
+	}
+
+	public function get_total() 
+	{
+        // Dapatkan jumlah total artikel
+		return $this->db->count_all("tabel_blog");
+	}
+
 	public function get_artikels(){
 		$query = $this->db->get('tabel_blog');
 		return $query->result();
@@ -74,16 +98,19 @@ class Artikel extends CI_Model{
 
 
 	public function update($upload, $id){
-		if($upload['result']=='success'){
+		if($upload['result']=='success')
+		{
 			$data = array('judul' => $this->input->post('judul'),
-							'konten' => $this->input->post('content'),
-							'penulis' => $this->input->post('penulis'),
-							'sumber' => $this->input->post('sumber'),
-							'lokasi_penulisan' => $this->input->post('id_kategori'),
-							'id_cat' => $this->input->post('id_cat'),
-							'images' => $upload['file']['file_name']
+				'konten' => $this->input->post('content'),
+				'penulis' => $this->input->post('penulis'),
+				'sumber' => $this->input->post('sumber'),
+				'lokasi_penulisan' => $this->input->post('id_kategori'),
+				'id_cat' => $this->input->post('id_cat'),
+				'images' => $upload['file']['file_name']
 			);
-		} else {
+		} 
+		else 
+		{
 			$data = array(
 				'judul' => $this->input->post('judul'),
 				'konten' => $this->input->post('content'),
@@ -99,7 +126,5 @@ class Artikel extends CI_Model{
 
 	public function Hapus($id){
 		$query = $this->db->query('DELETE from tabel_blog where id = '.$id);
-	}
-
-	
+	}	
 }

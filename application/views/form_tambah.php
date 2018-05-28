@@ -1,3 +1,7 @@
+<?php $this->load->view('templates/header'); ?>
+    <br>
+    <br>
+    <br>
 <div class="container">
   <?php echo validation_errors(); ?>
       <?php
@@ -53,5 +57,8 @@
         </tr>
       </table>
     </div>
-
+    <br>
+    <br>
+    <br>
+<?php $this->load->view('templates/footer'); ?>
 

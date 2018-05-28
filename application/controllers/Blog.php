@@ -39,21 +39,12 @@ class Blog extends CI_Controller {
 		}
 	}
 
-
-		// public function index()
-		// {
-
-		// }
-
-
 	public function detail($id)
 	{
 		$this->load->model('artikel');
 		$data['detail'] = $this->artikel->get_single($id);
 		$this->load->view('V_detail', $data);
 	}
-
-	//controller insert
 
 	public function tambah()
 	{

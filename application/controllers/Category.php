@@ -5,6 +5,7 @@ class Category extends CI_Controller {
 	{
 		$this->load->model('category_model');
 		$data['category'] = $this->category_model->get_category();
+		
 		$this->load->view('cat_view', $data);
 	}
 
@@ -42,6 +43,4 @@ class Category extends CI_Controller {
 		}
 		$this->load->view('update_kategori', $data);
 	}
-
-
 }

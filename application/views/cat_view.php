@@ -1,3 +1,7 @@
+<?php if (!$this->session->userdata('logged_in')) {
+  redirect('user/login');
+} ?>
+
 <?php $this->load->view('templates/header'); ?>
 <br><br><br>
 <br><br><br>

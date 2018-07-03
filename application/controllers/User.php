@@ -6,7 +6,7 @@ class User extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
-				
+
 		$this->load->library('form_validation');
 		//$this->load->helper('MY');
 		$this->load->model('user_model');
@@ -54,34 +54,34 @@ class User extends CI_Controller{
 			
 	//membuat fungsi login
 	// Get username
-	$username = $this->input->post('username');
+			$username = $this->input->post('username');
 	// Get & encrypt password
-	$password = md5($this->input->post('password'));
+			$password = md5($this->input->post('password'));
 
 	// Login user
-	$user_id = $this->user_model->login($username, $password);
+			$user_id = $this->user_model->login($username, $password);
 
-	if($user_id){
+			if($user_id){
 		// Buat session
-		$user_data = array(
-			'user_id' => $user_id,
-			'username' => $username,
-			'logged_in' => true,
-			'level' => $this->user_model->get_user_level($user_id)
-		);
+				$user_data = array(
+					'user_id' => $user_id,
+					'username' => $username,
+					'logged_in' => true,
+					'fk_level_id' => $this->user_model->get_user_level($user_id)
+				);
 
-		$this->session->set_userdata($user_data);
+				$this->session->set_userdata($user_data);
 
 		// Set message
-		$this->session->set_flashdata('user_loggedin', 'Anda sudah login');
+				$this->session->set_flashdata('user_loggedin', 'Anda sudah login');
 
-		redirect('user/dashboard');
-	} else {
+				redirect('user/dashboard');
+			} else {
 		// Set message
-		$this->session->set_flashdata('login_failed', 'Login invalid');
+				$this->session->set_flashdata('login_failed', 'Login invalid');
 
-		redirect('user/login');
-	}		
+				redirect('user/login');
+			}		
 		}
 	}
 
@@ -98,6 +98,13 @@ class User extends CI_Controller{
 		redirect('home');
 	}
 
+
+//untuk memanggil sesion level 
+	public function get_userdata(){
+		$userData = $this->session->userdata();
+		return $userData;
+	}
+
 // Fungsi Dashboard
 	function dashboard()
 	{
@@ -110,10 +117,24 @@ class User extends CI_Controller{
 		// Dapatkan detail dari User
 		$data['user'] = $this->user_model->get_user_details( $user_id );
 
-		// Load view
-		$this->load->view('templates/header', $data, FALSE);
-		$this->load->view('users/dashboard', $data, FALSE);
-		$this->load->view('templates/footer', $data, FALSE);
-	}
+		//Load view
+		// $this->load->view('templates/header', $data, FALSE);
+		// $this->load->view('users/dashboard', $data, FALSE);
+		// $this->load->view('templates/footer', $data, FALSE);
 
+		$userData = $this->get_userdata();
+		if ($userData['fk_level_id'] === '1'){
+			$this->load->view('templates/header');
+			$this->load->view('dashboard', $data);
+			$this->load->view('templates/footer');
+		} else if ($userData['fk_level_id'] === '2'){
+			$this->load->view('templates/header');
+			$this->load->view('membergold', $data);
+			$this->load->view('templates/footer');
+		} else if ($userData['fk_level_id'] === '3') {
+			$this->load->view('templates/header');
+			$this->load->view('membersilver', $data);
+			$this->load->view('templates/footer');
+		}
+	}
 }
